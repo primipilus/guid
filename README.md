@@ -12,7 +12,7 @@ Usage
 -----
 
 ```php
-$guid = new \Primipilus\Guid();
+$guid = new \primipilus\Guid();
 $guid->generate();
 echo $guid;
 
@@ -22,7 +22,7 @@ Methods
 -------
 
 ```php
-$guid = new \Primipilus\Guid();    
+$guid = new \primipilus\Guid();    
 
 // methods of guid:
 $guid->generate('order');

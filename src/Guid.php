@@ -1,6 +1,6 @@
 <?php
 
-namespace Primipilus;
+namespace primipilus;
 
 /**
  * Class Guid
