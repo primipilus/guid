@@ -18,7 +18,7 @@
   },
   "autoload": {
     "psr-4": {
-      "primipilus\\": "src/"
+      "primipilus\\guid\\": "src/"
     }
   }
 }
