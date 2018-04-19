@@ -5,35 +5,36 @@
 
 namespace primipilus\guid;
 
+use Ramsey\Uuid\Uuid;
+
 /**
  * Class GuidHelper
- *
  * @package primipilus\guid
  */
-class GuidHelper {
+class GuidHelper
+{
 
+    /** @var string */
     const ZERO = '00000000-0000-0000-0000-000000000000';
 
     /**
      * Create new generated valid guid
      *
-     * @param string $prefix
-     *
-     * @return null|Guid
+     * @return Guid
      */
-    public static function createGeneratedGuid($prefix = '')
+    public static function createGeneratedGuid() : Guid
     {
-        return self::createGuid(self::generateValue($prefix));
+        return new Guid();
     }
 
     /**
      * Create new valid guid
      *
-     * @param $value
+     * @param string $value
      *
      * @return null|Guid
      */
-    public static function createGuid($value)
+    public static function createGuid(string $value) : ?Guid
     {
         if (self::validate($value)) {
             return new Guid($value);
@@ -45,9 +46,9 @@ class GuidHelper {
     /**
      * Create zero guid
      *
-     * @return null|Guid
+     * @return Guid
      */
-    public static function createZeroGuid()
+    public static function createZeroGuid() : Guid
     {
         return new Guid(self::ZERO);
     }
@@ -55,11 +56,11 @@ class GuidHelper {
     /**
      * Validate guid value
      *
-     * @param $value
+     * @param string $value
      *
      * @return bool
      */
-    public static function validate($value)
+    public static function validate(string $value) : bool
     {
         return (bool)preg_match('#^[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}$#', (string)$value);
     }
@@ -67,29 +68,22 @@ class GuidHelper {
     /**
      * Checking value on ZERO
      *
-     * @param $value
+     * @param string $value
      *
      * @return bool
      */
-    public static function zero($value)
+    public static function zero(string $value) : bool
     {
         return self::ZERO === (string)$value;
     }
 
     /**
-     * Generate new
-     *
-     * @param string $prefix
+     * Generate new value
      *
      * @return string
      */
-    public static function generateValue($prefix = '')
+    public static function generateValue() : string
     {
-        return preg_replace(
-            '#(.{8})(.{4})(.{4})(.{4})(.{12})#',
-            '$1-$2-$3-$4-$5',
-            hash('ripemd128', uniqid('', true) . md5((string)$prefix . microtime(true)))
-        );
+        return Uuid::uuid4()->toString();
     }
-
 }

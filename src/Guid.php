@@ -4,51 +4,57 @@ namespace primipilus\guid;
 
 /**
  * Class Guid
- *
- * @package primipilus
+ * @package primipilus\guid
  */
-class Guid {
+class Guid
+{
 
-    protected $_value;
+    /** @var string */
+    protected $value;
 
     /**
      * Guid constructor.
      *
-     * @param null $value
+     * @param null|string $value
      */
-    public function __construct($value)
+    public function __construct(?string $value = null)
     {
-        $this->_value = $value;
+        if (is_null($value)) {
+            $this->generate();
+        } else {
+            $this->value = $value;
+        }
     }
 
     /**
      * Validate value
+     * @see GuidHelper::validate()
      *
      * @return bool
      */
-    public function isValid()
+    public function isValid() : bool
     {
-        return GuidHelper::validate($this->_value);
+        return GuidHelper::validate($this->value);
     }
 
     /**
      * Check on Zero value
+     * @see GuidHelper::ZERO
+     * @see GuidHelper::zero()
      *
      * @return bool
      */
-    public function isZero()
+    public function isZero() : bool
     {
-        return GuidHelper::zero($this->_value);
+        return GuidHelper::zero($this->value);
     }
 
     /**
-     * @param string $prefix
-     *
-     * @return void
+     * Generate new value
      */
-    public function generate($prefix = '')
+    public function generate() : void
     {
-        $this->_value = GuidHelper::generateValue($prefix);
+        $this->value = GuidHelper::generateValue();
     }
 
     /**
@@ -56,17 +62,16 @@ class Guid {
      */
     public function __toString()
     {
-        return (string)$this->_value;
+        return $this->value;
     }
 
     /**
      * Get value string
      *
-     * @return null|string
+     * @return string
      */
-    public function getValue()
+    public function getValue() : string
     {
-        return $this->_value;
+        return $this->value;
     }
-
 }

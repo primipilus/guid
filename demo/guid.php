@@ -40,7 +40,7 @@ if ($guid->isValid()) {
 
 
 echo 'generate new guid with prefix:', PHP_EOL;
-$guid = \primipilus\guid\GuidHelper::createGeneratedGuid('order');
+$guid = \primipilus\guid\GuidHelper::createGeneratedGuid();
 echo $guid, PHP_EOL;
 if ($guid->isValid()) {
     echo 'guid is valid', PHP_EOL;
